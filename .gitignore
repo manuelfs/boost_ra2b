@@ -1,0 +1,39 @@
+plots/*
+run/*.exe
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+
+# Compiled Dynamic libraries
+*.so
+*.d
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+
+# Compiled executables
+*.exe
+
+# Generated source files
+bin/*
+
+# emacs backups
+*~
+*#
+
+# Other
+*.root
+*.log
+*.pdf
+*.eps
+*.tex
+*.aux
+gmon.out
+out
+archive
+.nfs*
+.#-emacs*
