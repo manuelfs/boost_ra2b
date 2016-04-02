@@ -26,13 +26,13 @@ const long double PI = acos(-1.L);
 namespace ra2b{
   // Had to define the TColor objects in the cpp
   enum {
+    c_t5hh     = 2,    // red
     c_tt_1l    = 2012, // ucsb_blue
     c_tt_2l    = 2011, // tar_heel_blue
-    c_wjets    = 2018, // ucsb_gold
-    c_singlet  = 2015,
-    c_qcd      = 2020,
-    c_ttv      = 2002, // penn_red
-    c_other    = 2019
+    c_wjets    = 2004, // uo_green
+    c_znunu    = 2002, // penn_red
+    c_qcd      = 2001, // ucsb_gold
+    c_other    = 2005  // tcu_purple
   };
 
 }

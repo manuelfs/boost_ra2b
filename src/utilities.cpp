@@ -164,7 +164,7 @@ void plot_distributions(vector<sfeats> Samples, vector<hfeats> vars, TString lum
       int isam = vars[var].samples[sam];
       if(!Samples[isam].isSig && !Samples[isam].isData) nbkg++;
       samVariable = Samples[isam].samVariable;
-      totCut = Samples[isam].factor+"*"+luminosity+"*Weight*("+vars[var].cuts+"&&"+Samples[isam].cut+")";
+      totCut = Samples[isam].factor+"*"+luminosity+"*weight*("+vars[var].cuts+"&&"+Samples[isam].cut+")";
       if(Samples[isam].isData) totCut= vars[var].cuts+"&&"+Samples[isam].cut;
       //cout<<totCut<<endl;
       //histo[0][var][sam]->Sumw2();
@@ -401,7 +401,9 @@ void plot_distributions(vector<sfeats> Samples, vector<hfeats> vars, TString lum
       //label lumi
       pad->cd();
       if(!namestyle.Contains("CMSPaper") || showcuts) {
-	TString lumilbl = TString::Format("%1.1f",luminosity.Atof())+" fb^{-1}, "+norm_s;
+	TString lumilbl = TString::Format("%1.1f",luminosity.Atof())+" fb^{-1}";
+	if(norm_s=="") lumilbl += " (13 TeV)";
+	else lumilbl += ", "+norm_s;
 	TLatex llbl;
 	llbl.SetTextSize(style.LegendSize*0.8); 
 	llbl.SetNDC(); llbl.SetTextAlign(33);
@@ -547,7 +549,7 @@ void plot_2D_distributions(vector<sfeats> Samples, vector<hfeats> vars, TString 
     hname = "hist"; hname += i;
     title = cuts2title(vars[i].cuts); title += ";"; title += vars[i].titlex; title += ";"; title += vars[i].titley;
     variable = vars[i].varnamey+":"+vars[i].varnamex;
-    totCut = luminosity+"*Weight*("+vars[i].cuts+")";
+    totCut = luminosity+"*weight*("+vars[i].cuts+")";
 
     // Add together chains for the samples that should be in this plot
 
@@ -627,6 +629,8 @@ TString cuts2title(TString title){
   title.ReplaceAll("fjets_csv1", "CSV_{1}");
   title.ReplaceAll("fjets_csv2", "CSV_{2}");
   title.ReplaceAll("mc_id==25", "True Higgs");
+  title.ReplaceAll("dphi1>0.5", "high #Delta#phi");
+  title.ReplaceAll("ntrks", "n_{tks}");
 
   title.ReplaceAll("1==1", "Full Sample");
   title.ReplaceAll("el_tks_chg*lep_charge<0", "OS");title.ReplaceAll("mu_tks_chg*lep_charge<0", "OS");title.ReplaceAll("had_tks_chg*lep_charge<0", "OS");
@@ -973,10 +977,13 @@ long getYieldErr(TChain& tree, TString cut, double& yield, double& uncertainty){
 namespace ra2b{
   TColor ucsb_blue(2000, 1/255.,57/255.,166/255.);
   TColor ucsb_gold(2001, 255/255.,200/255.,47/255);
-  TColor penn_red(2002, 149/255.,0/255.,26/255.);
+  //TColor penn_red(2002, 149/255.,0/255.,26/255.);
+  TColor penn_red(2002, 160/255.,0/255.,26/255.);
   TColor uf_orange(2003, 255/255.,74/255.,0/255.);
-  TColor uo_green(2004, 0/255.,79/255.,39/255.);
-  TColor tcu_purple(2005, 52/255.,42/255.,123/255.);
+  //TColor uo_green(2004, 0/255.,79/255.,39/255.);
+  TColor uo_green(2004, 0/255.,140/255.,90/255.);
+  //TColor tcu_purple(2005, 52/255.,42/255.,123/255.);
+  TColor tcu_purple(2005, 100/255.,66/255.,176/255.);
   TColor tar_heel_blue(2006, 86/255.,160/255.,211/255.);
   TColor sig_teal(2007, 96/255.,159/255.,128/255.);
   TColor sig_gold(2008, 215/255.,162/255.,50/255.);
