@@ -16,6 +16,7 @@
 #include "TTree.h"
 #include "TGraph.h"
 
+#include "TFile.h"
 #include "TChain.h"
 #include "TH1D.h"
 #include "TH2D.h"
@@ -31,12 +32,28 @@
 #include "TEfficiency.h"
 #include "TSystem.h"
 #include "TDirectory.h"
+#include "TRegexp.h"
 
 #include "styles.hpp"
 #include "utilities.hpp"
+#include "alias_ra2b.hpp"
 
 using namespace std;
 
+TString getTreeName(TString filename){
+  TString folder(filename); folder.Remove(folder.Last('/'), folder.Length());
+  filename.Remove(0,filename.Last('/')+1);
+  vector<TString> files = dirlist(folder,filename);
+  if(files.size()==0){
+    cout<<"No files found for "<<folder<<"/"<<filename<<endl;
+    exit(1);
+  }
+  TFile file(folder+"/"+files[0]);
+  TString treeName("tree");
+  if(!file.GetListOfKeys()->Contains("tree")) treeName = "TreeMaker2/PreSelection";
+
+  return treeName;  
+}
 
 void plot_distributions(vector<sfeats> Samples, vector<hfeats> vars, TString luminosity, 
                         TString filetype, TString namestyle, TString dir, bool doRatio, bool showcuts){
@@ -78,12 +95,14 @@ void plot_distributions(vector<sfeats> Samples, vector<hfeats> vars, TString lum
   // Reading ntuples
   vector<TChain *> chain;
   for(unsigned sam(0); sam < Samples.size(); sam++){
-    chain.push_back(new TChain("TreeMaker2/PreSelection"));
+    TString treeName = getTreeName(Samples[sam].file[0]);
+    chain.push_back(new TChain(treeName));
     for(unsigned insam(0); insam < Samples[sam].file.size(); insam++){
       // cout<<"Reading "<<Samples[sam].file[insam]<<endl;
       chain[sam]->Add(Samples[sam].file[insam]);
       // cout<<"Entries "<<chain[sam]->GetEntries()<<endl;
     }
+    setAliasRa2b(chain[sam]);
   }
 
   TString lumi_nodot = luminosity; lumi_nodot.ReplaceAll(".","p");
@@ -112,7 +131,7 @@ void plot_distributions(vector<sfeats> Samples, vector<hfeats> vars, TString lum
     bool variableBins = vars[var].minx == -1;
     if (vars[var].minx == -1) vars[var].minx = vars[var].binning[0];
     const unsigned Nsam(vars[var].samples.size());
-    legH = (Nsam<=3?legSingle*Nsam:legSingle*(Nsam+1)/2);
+    legH = (Nsam<=3?legSingle*Nsam*1.2:legSingle*(Nsam+1)/2);
     fracLeg = legH/(1-style.PadTopMargin-style.PadBottomMargin)*1.25;
     for(int ileg(0); ileg<nLegs; ileg++) leg[ileg].SetY1NDC(legY-legH); 
     leg[1].SetX1NDC(legX1[1]+vars[var].moveRLegend); leg[1].SetX2NDC(legX1[1]+legW+vars[var].moveRLegend); 
@@ -511,7 +530,8 @@ void plot_2D_distributions(vector<sfeats> Samples, vector<hfeats> vars, TString 
   // Reading ntuples
   vector<TChain *> chain;
   for(unsigned sam(0); sam < Samples.size(); sam++){
-    chain.push_back(new TChain("TreeMaker2/PreSelection"));
+    TString treeName = getTreeName(Samples[sam].file[0]);
+    chain.push_back(new TChain(treeName));
     for(unsigned insam(0); insam < Samples[sam].file.size(); insam++){
       //cout<<"Reading "<<Samples[sam].file[insam]<<endl;
       chain[sam]->Add(Samples[sam].file[insam]);
@@ -538,7 +558,8 @@ void plot_2D_distributions(vector<sfeats> Samples, vector<hfeats> vars, TString 
     }
 
     //cout<<"Setting up chain "<<i+1<<" of "<<vars.size()<<endl;
-    TChain *tempChain = new TChain("TreeMaker2/PreSelection");
+    TString treeName = getTreeName(Samples[vars[i].samples[0]].file[0]);
+    TChain *tempChain = new TChain(treeName);
     for(unsigned int j=0; j<vars[i].samples.size(); j++){
       //cout<<"Reading "<<chain[vars[i].samples[j]]<<endl;
       tempChain->Add(chain[vars[i].samples[j]]);
@@ -598,6 +619,15 @@ void plot_2D_distributions(vector<sfeats> Samples, vector<hfeats> vars, TString 
 
 TString cuts2title(TString title){
   if(title=="1") title = "";
+
+  title.ReplaceAll("Sum$(abs(mc_id)==5&&mc_mom==25)", "n_{b}^{Higgs}");
+  title.ReplaceAll("Sum$(mc.Pt()>300&&mc_id==25)", "n_{Higgs}^{300GeV}");
+  title.ReplaceAll("fjets_pm", "m_{J}");
+  title.ReplaceAll("fjets_tau21", "#tau_{2}/#tau_{1}");
+  title.ReplaceAll("fjets_csv1", "CSV_{1}");
+  title.ReplaceAll("fjets_csv2", "CSV_{2}");
+  title.ReplaceAll("mc_id==25", "True Higgs");
+
   title.ReplaceAll("1==1", "Full Sample");
   title.ReplaceAll("el_tks_chg*lep_charge<0", "OS");title.ReplaceAll("mu_tks_chg*lep_charge<0", "OS");title.ReplaceAll("had_tks_chg*lep_charge<0", "OS");
   title.ReplaceAll("Sum$(abs(mc_id)==11)","n^{true}_{e}");
@@ -653,7 +683,7 @@ TString cuts2title(TString title){
   title.ReplaceAll("<=", " #leq "); title.ReplaceAll("<", " < "); 
   title.ReplaceAll("&&", ", "); title.ReplaceAll("==", " = "); 
   title.ReplaceAll("met", "MET"); title.ReplaceAll("ht_hlt", "H_{T}^{HLT}");  
-  title.ReplaceAll("mht", "MHT");  
+  title.ReplaceAll("mht", "H_{T}^{miss}");  
   title.ReplaceAll("ht", "H_{T}");  title.ReplaceAll("mt", "m_{T}"); 
   title.ReplaceAll("ntks_chg==0", " ITV");
   title.ReplaceAll("nbm","n_{b}"); 
@@ -1123,6 +1153,7 @@ float Efficiency(float num, float den, float &errup, float &errdown){
 vector<TString> dirlist(const TString &folder,
                         const TString &inname,
                         const TString &tag){
+  TRegexp regex_tag(tag,true), regex_inname(inname, true);
   TString pwd(gSystem->pwd());
   vector<TString> v_dirs;
   TSystemDirectory dir(folder, folder);
@@ -1134,13 +1165,14 @@ vector<TString> dirlist(const TString &folder,
     while ((file=static_cast<TSystemFile*>(next()))) {
       fname = file->GetName();
       if (inname=="dir") {
-        if ((file->IsDirectory() && !fname.Contains(".") && fname.Contains(tag))) v_dirs.push_back(fname);
-      } else  if(fname.Contains(inname)) v_dirs.push_back(fname);
+        if ((file->IsDirectory() && !fname.Contains(".") && fname.Contains(regex_tag))) v_dirs.push_back(fname);
+      } else  if(fname.Contains(regex_inname)) v_dirs.push_back(fname);
     }
   } // if(files)
   gSystem->cd(pwd); // The TSystemDirectory object seems to change current folder
   return v_dirs;
 }
+
 
 bool eigen2x2(float matrix[2][2], float &eig1, float &eig2){
   float root = pow(matrix[0][0],2) + pow(matrix[1][1],2)-2*matrix[0][0]*matrix[1][1]+4*matrix[0][1]*matrix[1][0];

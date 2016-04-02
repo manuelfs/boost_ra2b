@@ -9,12 +9,10 @@
 namespace {
   TString luminosity="2.3";
   TString plot_type=".pdf";
-  TString plot_style="CMSPaper";
+  TString plot_style="RA4";
 }
 
 using namespace std;
-using std::cout;
-using std::endl;
 
 int main(){ 
   time_t begtime, endtime;
@@ -49,10 +47,35 @@ int main(){
 
   vector<hfeats> vars;
 
-  vars.push_back(hfeats("MHT",55,0,1100, ra2b_sam, "H_{T}^{miss} [GeV]","2",200));
-  vars.back().whichPlots = "34"; vars.back().normalize = true; 
+  // Number of Higgs tags
+  vars.push_back(hfeats("Sum$(fjets_pm>100&&fjets_pm<140&&fjets_tau21<0.4&&fjets_csv1>.605)",3,-0.49,2.5, 
+			ra2b_sam, "Higgs tags (100<m_{J}<140, #tau_{2}/#tau_{1}<0.4, n_{b}^{L} #geq 1)",
+			"Sum$(abs(mc_id)==5&&mc_mom==25)>=3&&Sum$(mc.Pt()>300&&mc_id==25)>=1"));
+  vars.back().whichPlots = "3"; vars.back().normalize = true; 
 
-  plot_distributions(Samples, vars, luminosity, plot_type, plot_style, "paper",false);
+  vars.push_back(hfeats("Sum$(fjets_pm>100&&fjets_pm<140&&fjets_tau21<0.4&&fjets_csv1>.605&&fjets_csv2>.605)",3,-0.49,2.5, 
+			ra2b_sam, "Higgs tags (100<m_{J}<140, #tau_{2}/#tau_{1}<0.4, n_{b}^{L} #geq 2)",
+			"Sum$(abs(mc_id)==5&&mc_mom==25)>=3&&Sum$(mc.Pt()>300&&mc_id==25)>=1"));
+  vars.back().whichPlots = "3"; vars.back().normalize = true; 
+
+  vars.push_back(hfeats("Sum$(fjets_pm>90&&fjets_pm<150&&fjets_tau21<0.6&&fjets_csv1>.605)",3,-0.49,2.5, 
+			ra2b_sam, "Higgs tags","1"));
+  vars.back().whichPlots = "3"; vars.back().normalize = true; 
+
+  // Higgs mass
+  vars.push_back(hfeats("fjets_pm",100,0,300, 
+			ra2b_sam, "m_{J} [GeV]","fjets_tau21<0.4&&fjets_csv1>0.89"));
+  vars.back().whichPlots = "3"; vars.back().normalize = true; 
+
+  vars.push_back(hfeats("fjets_pm",100,0,300, 
+			ra2b_sam, "m_{J} [GeV]","fjets_tau21<0.4&&fjets_csv1>0.89&&fjets_csv2>0.89"));
+  vars.back().whichPlots = "3"; vars.back().normalize = true; 
+
+  // Higgs pT
+  vars.push_back(hfeats("mc.Pt()",55,0,1100, ra2b_sam, "Higgs p_{T} [GeV]","mc_id==25"));
+  vars.back().whichPlots = "3"; vars.back().normalize = true; 
+
+  plot_distributions(Samples, vars, luminosity, plot_type, plot_style, "",false,true);
 
   time(&endtime); 
   cout<<endl<<"Plots took "<<difftime(endtime, begtime)<<" seconds"<<endl<<endl;
