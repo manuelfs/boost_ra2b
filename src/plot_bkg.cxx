@@ -7,7 +7,7 @@
 #include "utilities.hpp"
 
 namespace {
-  TString luminosity="2.3";
+  TString luminosity="10";
   TString plot_type=".pdf";
   TString plot_style="RA4";
 }
@@ -66,11 +66,19 @@ int main(){
 
   vector<hfeats> vars;
 
-  vars.push_back(hfeats("Sum$(fjets_pm>90&&fjets_pm<140&&fjets_tau21<0.4&&fjets_csv1>.605)",3,-0.49,2.5, 
-			ra2b_sam, "Higgs tags (90<m_{J}<140, #tau_{2}/#tau_{1}<0.4, n_{b}^{L} #geq 1)",
-			"nleps==0&&ht>500&&mht>400&&njets>=6&&dphi1>0.5&&ntrks==0&&nbm>=1"));
+  vars.push_back(hfeats("fjets_pm",30,0,300, ra2b_sam, "m_{J} [GeV]",
+			"fjets_tau21<0.6&&fjets_csv1>0.605&&fjets_csv2>0.605&&fjets.Pt()>300&&njets>=6&&nbm>=1&&ht>750"));
   vars.back().whichPlots = "12"; 
 
+  vars.push_back(hfeats("Sum$(fjets_pm>90&&fjets_pm<140&&fjets_tau21<0.6&&fjets_csv1>.605&&fjets_csv2>.605)",3,-0.49,2.5, 
+			ra2b_sam, "Higgs tags (90<m_{J}<140, #tau_{2}/#tau_{1}<0.6, n_{b}^{L} #geq 2)",
+			"nleps==0&&ht>750&&mht>200&&njets>=6&&dphi1>0.5&&ntrks==0&&nbm>=1"));
+  vars.back().whichPlots = "12"; 
+  vars.push_back(hfeats("nbm",7,-0.5,6.5,ra2b_sam, 
+			"N_{b-jet}","nleps==0&&ht>750&&mht>200&&njets>=6&&dphi1>0.5&&ntrks==0"));
+  vars.back().whichPlots = "12"; 
+
+  // Baseline
   vars.push_back(hfeats("ht",29,500,3400,ra2b_sam, 
 			"H_{T} [GeV]","nleps==0&&ht>500&&mht>200&&njets>=4&&dphi1>0.5&&ntrks==0"));
   vars.back().whichPlots = "12"; 
@@ -84,7 +92,7 @@ int main(){
 			"N_{b-jet}","nleps==0&&ht>500&&mht>200&&njets>=4&&dphi1>0.5&&ntrks==0"));
   vars.back().whichPlots = "12"; 
 
-  plot_distributions(Samples, vars, luminosity, plot_type, plot_style, "",false,true);
+  plot_distributions(Samples, vars, luminosity, plot_type, plot_style, "baseline",false,true);
 
   time(&endtime); 
   cout<<endl<<"Plots took "<<difftime(endtime, begtime)<<" seconds"<<endl<<endl;

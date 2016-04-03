@@ -624,6 +624,7 @@ TString cuts2title(TString title){
 
   title.ReplaceAll("Sum$(abs(mc_id)==5&&mc_mom==25)", "n_{b}^{Higgs}");
   title.ReplaceAll("Sum$(mc.Pt()>300&&mc_id==25)", "n_{Higgs}^{300GeV}");
+  title.ReplaceAll("fjets.Pt()", "p_{T}^{J}");
   title.ReplaceAll("fjets_pm", "m_{J}");
   title.ReplaceAll("fjets_tau21", "#tau_{2}/#tau_{1}");
   title.ReplaceAll("fjets_csv1", "CSV_{1}");

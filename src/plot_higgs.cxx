@@ -75,7 +75,7 @@ int main(){
   vars.push_back(hfeats("mc.Pt()",55,0,1100, ra2b_sam, "Higgs p_{T} [GeV]","mc_id==25"));
   vars.back().whichPlots = "3"; vars.back().normalize = true; 
 
-  plot_distributions(Samples, vars, luminosity, plot_type, plot_style, "",false,true);
+  plot_distributions(Samples, vars, luminosity, plot_type, plot_style, "nocuts_higgs",false,true);
 
   time(&endtime); 
   cout<<endl<<"Plots took "<<difftime(endtime, begtime)<<" seconds"<<endl<<endl;
