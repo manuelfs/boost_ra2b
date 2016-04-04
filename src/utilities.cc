@@ -34,9 +34,9 @@
 #include "TDirectory.h"
 #include "TRegexp.h"
 
-#include "styles.hpp"
-#include "utilities.hpp"
-#include "alias_ra2b.hpp"
+#include "styles.hh"
+#include "utilities.hh"
+#include "alias_ra2b.hh"
 
 using namespace std;
 

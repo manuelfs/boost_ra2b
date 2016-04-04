@@ -11,10 +11,10 @@
 #include "TMarker.h"
 #include "TStyle.h"
 
-#include "styles.hpp"
-#include "utilities.hpp"
-#include "roc_higgs.hpp"
-#include "alias_ra2b.hpp"
+#include "styles.hh"
+#include "utilities.hh"
+#include "roc_higgs.hh"
+#include "alias_ra2b.hh"
 
 using namespace std;
 

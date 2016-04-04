@@ -1,4 +1,4 @@
-#include "timer.hpp"
+#include "timer.hh"
 #include <ctime>
 #include <cstdio>
 #include <cmath>

@@ -3,8 +3,8 @@
 
 #include "TString.h"
 
-#include "styles.hpp"
-#include "utilities.hpp"
+#include "styles.hh"
+#include "utilities.hh"
 
 namespace {
   TString luminosity="2.3";
@@ -24,7 +24,6 @@ int main(){
     bfolder = "/net/cms2"; // In laptops, you can't create a /net folder
   
   TString folder(bfolder+"/cms2r0/treemaker/trees/");
-
 
   vector<TString> s_t5hnc;
   s_t5hnc.push_back(folder+"*T5HH*1200_*200_*");

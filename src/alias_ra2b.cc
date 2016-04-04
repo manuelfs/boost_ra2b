@@ -3,7 +3,7 @@
 //----------------------------------------------------------------------------
 
 #ifndef ROOT_VERSION
-#include "alias_ra2b.hpp"
+#include "alias_ra2b.hh"
 #endif
 
 void setAliasRa2b(TTree *tree){

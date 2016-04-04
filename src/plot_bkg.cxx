@@ -3,8 +3,8 @@
 
 #include "TString.h"
 
-#include "styles.hpp"
-#include "utilities.hpp"
+#include "styles.hh"
+#include "utilities.hh"
 
 namespace {
   TString luminosity="10";

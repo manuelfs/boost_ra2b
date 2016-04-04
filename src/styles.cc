@@ -3,7 +3,7 @@
 //----------------------------------------------------------------------------
 
 #ifndef INT_ROOT
-#include "styles.hpp"
+#include "styles.hh"
 #endif
 
 #include "TCanvas.h"
