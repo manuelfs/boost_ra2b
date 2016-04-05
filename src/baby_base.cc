@@ -586,6 +586,10 @@ baby_base::baby_base():
   p_mus_vvvl_(&mus_vvvl_),
   b_mus_vvvl_(tree_.Branch("mus_vvvl", &p_mus_vvvl_)),
   c_mus_vvvl_(false),
+  pfcands_charge_(0),
+  p_pfcands_charge_(&pfcands_charge_),
+  b_pfcands_charge_(tree_.Branch("pfcands_charge", &p_pfcands_charge_)),
+  c_pfcands_charge_(false),
   ph_ph90_(0),
   p_ph_ph90_(&ph_ph90_),
   b_ph_ph90_(tree_.Branch("ph_ph90", &p_ph_ph90_)),
@@ -790,6 +794,22 @@ baby_base::baby_base():
   p_mus_vvvl_pt_(&mus_vvvl_pt_),
   b_mus_vvvl_pt_(tree_.Branch("mus_vvvl_pt", &p_mus_vvvl_pt_)),
   c_mus_vvvl_pt_(false),
+  pfcands_eta_(0),
+  p_pfcands_eta_(&pfcands_eta_),
+  b_pfcands_eta_(tree_.Branch("pfcands_eta", &p_pfcands_eta_)),
+  c_pfcands_eta_(false),
+  pfcands_m_(0),
+  p_pfcands_m_(&pfcands_m_),
+  b_pfcands_m_(tree_.Branch("pfcands_m", &p_pfcands_m_)),
+  c_pfcands_m_(false),
+  pfcands_phi_(0),
+  p_pfcands_phi_(&pfcands_phi_),
+  b_pfcands_phi_(tree_.Branch("pfcands_phi", &p_pfcands_phi_)),
+  c_pfcands_phi_(false),
+  pfcands_pt_(0),
+  p_pfcands_pt_(&pfcands_pt_),
+  b_pfcands_pt_(tree_.Branch("pfcands_pt", &p_pfcands_pt_)),
+  c_pfcands_pt_(false),
   ph_eta_(0),
   p_ph_eta_(&ph_eta_),
   b_ph_eta_(tree_.Branch("ph_eta", &p_ph_eta_)),
@@ -942,6 +962,14 @@ baby_base::baby_base():
   p_mus_charge_(&mus_charge_),
   b_mus_charge_(tree_.Branch("mus_charge", &p_mus_charge_)),
   c_mus_charge_(false),
+  pfcands_frompv_(0),
+  p_pfcands_frompv_(&pfcands_frompv_),
+  b_pfcands_frompv_(tree_.Branch("pfcands_frompv", &p_pfcands_frompv_)),
+  c_pfcands_frompv_(false),
+  pfcands_id_(0),
+  p_pfcands_id_(&pfcands_id_),
+  b_pfcands_id_(tree_.Branch("pfcands_id", &p_pfcands_id_)),
+  c_pfcands_id_(false),
   sys_nbm_(0),
   p_sys_nbm_(&sys_nbm_),
   b_sys_nbm_(tree_.Branch("sys_nbm", &p_sys_nbm_)),
@@ -1513,6 +1541,10 @@ baby_base::baby_base(const TString &filename):
   p_mus_vvvl_(&mus_vvvl_),
   b_mus_vvvl_(NULL),
   c_mus_vvvl_(false),
+  pfcands_charge_(0),
+  p_pfcands_charge_(&pfcands_charge_),
+  b_pfcands_charge_(NULL),
+  c_pfcands_charge_(false),
   ph_ph90_(0),
   p_ph_ph90_(&ph_ph90_),
   b_ph_ph90_(NULL),
@@ -1717,6 +1749,22 @@ baby_base::baby_base(const TString &filename):
   p_mus_vvvl_pt_(&mus_vvvl_pt_),
   b_mus_vvvl_pt_(NULL),
   c_mus_vvvl_pt_(false),
+  pfcands_eta_(0),
+  p_pfcands_eta_(&pfcands_eta_),
+  b_pfcands_eta_(NULL),
+  c_pfcands_eta_(false),
+  pfcands_m_(0),
+  p_pfcands_m_(&pfcands_m_),
+  b_pfcands_m_(NULL),
+  c_pfcands_m_(false),
+  pfcands_phi_(0),
+  p_pfcands_phi_(&pfcands_phi_),
+  b_pfcands_phi_(NULL),
+  c_pfcands_phi_(false),
+  pfcands_pt_(0),
+  p_pfcands_pt_(&pfcands_pt_),
+  b_pfcands_pt_(NULL),
+  c_pfcands_pt_(false),
   ph_eta_(0),
   p_ph_eta_(&ph_eta_),
   b_ph_eta_(NULL),
@@ -1869,6 +1917,14 @@ baby_base::baby_base(const TString &filename):
   p_mus_charge_(&mus_charge_),
   b_mus_charge_(NULL),
   c_mus_charge_(false),
+  pfcands_frompv_(0),
+  p_pfcands_frompv_(&pfcands_frompv_),
+  b_pfcands_frompv_(NULL),
+  c_pfcands_frompv_(false),
+  pfcands_id_(0),
+  p_pfcands_id_(&pfcands_id_),
+  b_pfcands_id_(NULL),
+  c_pfcands_id_(false),
   sys_nbm_(0),
   p_sys_nbm_(&sys_nbm_),
   b_sys_nbm_(NULL),
@@ -2059,6 +2115,7 @@ baby_base::baby_base(const TString &filename):
   chain_.SetBranchAddress("mus_tight", &p_mus_tight_, &b_mus_tight_);
   chain_.SetBranchAddress("mus_tm", &p_mus_tm_, &b_mus_tm_);
   chain_.SetBranchAddress("mus_vvvl", &p_mus_vvvl_, &b_mus_vvvl_);
+  chain_.SetBranchAddress("pfcands_charge", &p_pfcands_charge_, &b_pfcands_charge_);
   chain_.SetBranchAddress("ph_ph90", &p_ph_ph90_, &b_ph_ph90_);
   chain_.SetBranchAddress("ph_tm", &p_ph_tm_, &b_ph_tm_);
   chain_.SetBranchAddress("sys_pass", &p_sys_pass_, &b_sys_pass_);
@@ -2110,6 +2167,10 @@ baby_base::baby_base(const TString &filename):
   chain_.SetBranchAddress("mus_vvvl_eta", &p_mus_vvvl_eta_, &b_mus_vvvl_eta_);
   chain_.SetBranchAddress("mus_vvvl_phi", &p_mus_vvvl_phi_, &b_mus_vvvl_phi_);
   chain_.SetBranchAddress("mus_vvvl_pt", &p_mus_vvvl_pt_, &b_mus_vvvl_pt_);
+  chain_.SetBranchAddress("pfcands_eta", &p_pfcands_eta_, &b_pfcands_eta_);
+  chain_.SetBranchAddress("pfcands_m", &p_pfcands_m_, &b_pfcands_m_);
+  chain_.SetBranchAddress("pfcands_phi", &p_pfcands_phi_, &b_pfcands_phi_);
+  chain_.SetBranchAddress("pfcands_pt", &p_pfcands_pt_, &b_pfcands_pt_);
   chain_.SetBranchAddress("ph_eta", &p_ph_eta_, &b_ph_eta_);
   chain_.SetBranchAddress("ph_phi", &p_ph_phi_, &b_ph_phi_);
   chain_.SetBranchAddress("ph_pt", &p_ph_pt_, &b_ph_pt_);
@@ -2148,6 +2209,8 @@ baby_base::baby_base(const TString &filename):
   chain_.SetBranchAddress("mc_id", &p_mc_id_, &b_mc_id_);
   chain_.SetBranchAddress("mc_mom", &p_mc_mom_, &b_mc_mom_);
   chain_.SetBranchAddress("mus_charge", &p_mus_charge_, &b_mus_charge_);
+  chain_.SetBranchAddress("pfcands_frompv", &p_pfcands_frompv_, &b_pfcands_frompv_);
+  chain_.SetBranchAddress("pfcands_id", &p_pfcands_id_, &b_pfcands_id_);
   chain_.SetBranchAddress("sys_nbm", &p_sys_nbm_, &b_sys_nbm_);
   chain_.SetBranchAddress("sys_njets", &p_sys_njets_, &b_sys_njets_);
   chain_.SetBranchAddress("tks_pdg", &p_tks_pdg_, &b_tks_pdg_);
@@ -2338,6 +2401,7 @@ void baby_base::Fill(){
   mus_tight_.clear();
   mus_tm_.clear();
   mus_vvvl_.clear();
+  pfcands_charge_.clear();
   ph_ph90_.clear();
   ph_tm_.clear();
   sys_pass_.clear();
@@ -2389,6 +2453,10 @@ void baby_base::Fill(){
   mus_vvvl_eta_.clear();
   mus_vvvl_phi_.clear();
   mus_vvvl_pt_.clear();
+  pfcands_eta_.clear();
+  pfcands_m_.clear();
+  pfcands_phi_.clear();
+  pfcands_pt_.clear();
   ph_eta_.clear();
   ph_phi_.clear();
   ph_pt_.clear();
@@ -2427,6 +2495,8 @@ void baby_base::Fill(){
   mc_id_.clear();
   mc_mom_.clear();
   mus_charge_.clear();
+  pfcands_frompv_.clear();
+  pfcands_id_.clear();
   sys_nbm_.clear();
   sys_njets_.clear();
   tks_pdg_.clear();
@@ -2649,6 +2719,7 @@ void baby_base::GetEntry(const long entry){
   c_mus_tight_ = false;
   c_mus_tm_ = false;
   c_mus_vvvl_ = false;
+  c_pfcands_charge_ = false;
   c_ph_ph90_ = false;
   c_ph_tm_ = false;
   c_sys_pass_ = false;
@@ -2700,6 +2771,10 @@ void baby_base::GetEntry(const long entry){
   c_mus_vvvl_eta_ = false;
   c_mus_vvvl_phi_ = false;
   c_mus_vvvl_pt_ = false;
+  c_pfcands_eta_ = false;
+  c_pfcands_m_ = false;
+  c_pfcands_phi_ = false;
+  c_pfcands_pt_ = false;
   c_ph_eta_ = false;
   c_ph_phi_ = false;
   c_ph_pt_ = false;
@@ -2738,6 +2813,8 @@ void baby_base::GetEntry(const long entry){
   c_mc_id_ = false;
   c_mc_mom_ = false;
   c_mus_charge_ = false;
+  c_pfcands_frompv_ = false;
+  c_pfcands_id_ = false;
   c_sys_nbm_ = false;
   c_sys_njets_ = false;
   c_tks_pdg_ = false;
@@ -4691,6 +4768,17 @@ std::vector<bool>  const & baby_base::mus_vvvl() const{
   return mus_vvvl_;
 }
 
+std::vector<bool>  const & baby_base::pfcands_charge() const{
+  if(!read_only_){
+    throw std::logic_error("Trying to write to const tree.");
+  }
+  if(!c_pfcands_charge_ && b_pfcands_charge_){
+    b_pfcands_charge_->GetEntry(entry_);
+    c_pfcands_charge_ = true;
+  }
+  return pfcands_charge_;
+}
+
 std::vector<bool>  const & baby_base::ph_ph90() const{
   if(!read_only_){
     throw std::logic_error("Trying to write to const tree.");
@@ -5252,6 +5340,50 @@ std::vector<float>  const & baby_base::mus_vvvl_pt() const{
   return mus_vvvl_pt_;
 }
 
+std::vector<float>  const & baby_base::pfcands_eta() const{
+  if(!read_only_){
+    throw std::logic_error("Trying to write to const tree.");
+  }
+  if(!c_pfcands_eta_ && b_pfcands_eta_){
+    b_pfcands_eta_->GetEntry(entry_);
+    c_pfcands_eta_ = true;
+  }
+  return pfcands_eta_;
+}
+
+std::vector<float>  const & baby_base::pfcands_m() const{
+  if(!read_only_){
+    throw std::logic_error("Trying to write to const tree.");
+  }
+  if(!c_pfcands_m_ && b_pfcands_m_){
+    b_pfcands_m_->GetEntry(entry_);
+    c_pfcands_m_ = true;
+  }
+  return pfcands_m_;
+}
+
+std::vector<float>  const & baby_base::pfcands_phi() const{
+  if(!read_only_){
+    throw std::logic_error("Trying to write to const tree.");
+  }
+  if(!c_pfcands_phi_ && b_pfcands_phi_){
+    b_pfcands_phi_->GetEntry(entry_);
+    c_pfcands_phi_ = true;
+  }
+  return pfcands_phi_;
+}
+
+std::vector<float>  const & baby_base::pfcands_pt() const{
+  if(!read_only_){
+    throw std::logic_error("Trying to write to const tree.");
+  }
+  if(!c_pfcands_pt_ && b_pfcands_pt_){
+    b_pfcands_pt_->GetEntry(entry_);
+    c_pfcands_pt_ = true;
+  }
+  return pfcands_pt_;
+}
+
 std::vector<float>  const & baby_base::ph_eta() const{
   if(!read_only_){
     throw std::logic_error("Trying to write to const tree.");
@@ -5668,6 +5800,28 @@ std::vector<int>  const & baby_base::mus_charge() const{
     c_mus_charge_ = true;
   }
   return mus_charge_;
+}
+
+std::vector<int>  const & baby_base::pfcands_frompv() const{
+  if(!read_only_){
+    throw std::logic_error("Trying to write to const tree.");
+  }
+  if(!c_pfcands_frompv_ && b_pfcands_frompv_){
+    b_pfcands_frompv_->GetEntry(entry_);
+    c_pfcands_frompv_ = true;
+  }
+  return pfcands_frompv_;
+}
+
+std::vector<int>  const & baby_base::pfcands_id() const{
+  if(!read_only_){
+    throw std::logic_error("Trying to write to const tree.");
+  }
+  if(!c_pfcands_id_ && b_pfcands_id_){
+    b_pfcands_id_->GetEntry(entry_);
+    c_pfcands_id_ = true;
+  }
+  return pfcands_id_;
 }
 
 std::vector<int>  const & baby_base::sys_nbm() const{
@@ -7119,6 +7273,14 @@ std::vector<bool>  & baby_base::mus_vvvl(){
   return mus_vvvl_;
 }
 
+std::vector<bool>  & baby_base::pfcands_charge(){
+  if(read_only_ && !c_pfcands_charge_ && b_pfcands_charge_){
+    b_pfcands_charge_->GetEntry(entry_);
+    c_pfcands_charge_ = true;
+  }
+  return pfcands_charge_;
+}
+
 std::vector<bool>  & baby_base::ph_ph90(){
   if(read_only_ && !c_ph_ph90_ && b_ph_ph90_){
     b_ph_ph90_->GetEntry(entry_);
@@ -7527,6 +7689,38 @@ std::vector<float>  & baby_base::mus_vvvl_pt(){
   return mus_vvvl_pt_;
 }
 
+std::vector<float>  & baby_base::pfcands_eta(){
+  if(read_only_ && !c_pfcands_eta_ && b_pfcands_eta_){
+    b_pfcands_eta_->GetEntry(entry_);
+    c_pfcands_eta_ = true;
+  }
+  return pfcands_eta_;
+}
+
+std::vector<float>  & baby_base::pfcands_m(){
+  if(read_only_ && !c_pfcands_m_ && b_pfcands_m_){
+    b_pfcands_m_->GetEntry(entry_);
+    c_pfcands_m_ = true;
+  }
+  return pfcands_m_;
+}
+
+std::vector<float>  & baby_base::pfcands_phi(){
+  if(read_only_ && !c_pfcands_phi_ && b_pfcands_phi_){
+    b_pfcands_phi_->GetEntry(entry_);
+    c_pfcands_phi_ = true;
+  }
+  return pfcands_phi_;
+}
+
+std::vector<float>  & baby_base::pfcands_pt(){
+  if(read_only_ && !c_pfcands_pt_ && b_pfcands_pt_){
+    b_pfcands_pt_->GetEntry(entry_);
+    c_pfcands_pt_ = true;
+  }
+  return pfcands_pt_;
+}
+
 std::vector<float>  & baby_base::ph_eta(){
   if(read_only_ && !c_ph_eta_ && b_ph_eta_){
     b_ph_eta_->GetEntry(entry_);
@@ -7829,6 +8023,22 @@ std::vector<int>  & baby_base::mus_charge(){
     c_mus_charge_ = true;
   }
   return mus_charge_;
+}
+
+std::vector<int>  & baby_base::pfcands_frompv(){
+  if(read_only_ && !c_pfcands_frompv_ && b_pfcands_frompv_){
+    b_pfcands_frompv_->GetEntry(entry_);
+    c_pfcands_frompv_ = true;
+  }
+  return pfcands_frompv_;
+}
+
+std::vector<int>  & baby_base::pfcands_id(){
+  if(read_only_ && !c_pfcands_id_ && b_pfcands_id_){
+    b_pfcands_id_->GetEntry(entry_);
+    c_pfcands_id_ = true;
+  }
+  return pfcands_id_;
 }
 
 std::vector<int>  & baby_base::sys_nbm(){

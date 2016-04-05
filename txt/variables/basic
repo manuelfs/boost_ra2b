@@ -27,6 +27,15 @@ float mt_rebal
 float dphi_wlep
 bool jetmismeas
 
+###################   PFCands   ###############
+std::vector<float> pfcands_m
+std::vector<float> pfcands_pt
+std::vector<float> pfcands_eta
+std::vector<float> pfcands_phi
+std::vector<int>   pfcands_id
+std::vector<bool>  pfcands_charge
+std::vector<int>   pfcands_frompv
+
 ###################   MET   ##################
 float met
 float met_phi
