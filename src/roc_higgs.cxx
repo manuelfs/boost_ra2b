@@ -127,24 +127,37 @@ int main(){
   general.push_back(var_class("njets",15,0,"N_{jet}",28,1,nj_points));
   general.push_back(var_class("nbm",7,0,"N_{b-jet}",4,1,nb_points));
 
+  TString nbm("N#lower[-.01]{_{b}}#kern[-0.6]{#lower[.1]{^{M}}}"), nbl("N#lower[-.01]{_{b}}#kern[-0.6]{#lower[.1]{^{L}}}");
   vector<var_class> htags;
+  htags.push_back(var_class("Sum$(fjets_pm>90&&fjets_pm<140&&fjets_tau21<0.4&&fjets_csv1>.605)",
+			    3,0,"N_{H-jet} (#tau_{2}/#tau_{1}<0.4, "+nbl+" #geq 1)",4,1,hig_blue));
   htags.push_back(var_class("Sum$(fjets_pm>90&&fjets_pm<140&&fjets_tau21<0.4&&fjets_csv1>.89)",3,0,
-			    "N_{H-jet} (#tau_{2}/#tau_{1}<0.4, n_{b}^{M} #geq 1)",ht_col,1,hig_green));
+			    "N_{H-jet} (#tau_{2}/#tau_{1}<0.4, "+nbm+" #geq 1)",ht_col,1,hig_green));
   htags.push_back(var_class("Sum$(fjets_pm>90&&fjets_pm<140&&fjets_tau21<0.6&&fjets_csv1>.89)",
-			    3,0,"N_{H-jet} (#tau_{2}/#tau_{1}<0.6, n_{b}^{M} #geq 1)",1,1,hig_black));
+			    3,0,"N_{H-jet} (#tau_{2}/#tau_{1}<0.6, "+nbm+" #geq 1)",1,1,hig_black));
   htags.push_back(var_class("Sum$(fjets_pm>90&&fjets_pm<140&&fjets_tau21<0.3&&fjets_csv1>.89)",
-			    3,0,"N_{H-jet} (#tau_{2}/#tau_{1}<0.3, n_{b}^{M} #geq 1)",28,1,hig_brown));
-  htags.push_back(var_class("Sum$(fjets_pm>90&&fjets_pm<140&&fjets_tau21<0.6&&fjets_csv1>.605&&fjets_csv2>.605)",
-			    3,0,"N_{H-jet} (#tau_{2}/#tau_{1}<0.6, n_{b}^{L} #geq 2)",4,1,hig_blue));
+			    3,0,"N_{H-jet} (#tau_{2}/#tau_{1}<0.3, "+nbm+" #geq 1)",28,1,hig_brown));
   htags.push_back(var_class("Sum$(fjets_pm>90&&fjets_pm<140&&fjets_tau21<0.6&&fjets_csv1>.89&&fjets_csv2>.89)",
-			    3,0,"N_{H-jet} (#tau_{2}/#tau_{1}<0.6, n_{b}^{M} #geq 2)",hig_col,1,hig_points));
+			    3,0,"N_{H-jet} (#tau_{2}/#tau_{1}<0.6, "+nbm+" #geq 2)",hig_col,1,hig_points));
+
+  vector<var_class> htags2;
+  htags2.push_back(var_class("Sum$(fjets_pm>90&&fjets_pm<140&&fjets_tau21<0.4&&fjets_csv1>.89)",
+			     3,0,"N_{H-jet} (#tau_{2}/#tau_{1}<0.4,"+nbm+"  #geq 1)",ht_col,1,hig_green));
+  htags2.push_back(var_class("Sum$(fjets_pm>90&&fjets_pm<140&&fjets_tau21<0.4&&fjets_csv1>.605&&fjets_csv2>.605)",
+			     3,0,"N_{H-jet} (#tau_{2}/#tau_{1}<0.4, "+nbl+" #geq 2)",1,1,hig_black));
+  htags2.push_back(var_class("Sum$(fjets_pm>90&&fjets_pm<140&&fjets_tau21<0.3&&fjets_csv1>.605&&fjets_csv2>.605)",
+			     3,0,"N_{H-jet} (#tau_{2}/#tau_{1}<0.3, "+nbl+" #geq 2)",28,1,hig_brown));
+  htags2.push_back(var_class("Sum$(fjets_pm>90&&fjets_pm<140&&fjets_tau21<0.6&&fjets_csv1>.605&&fjets_csv2>.605)",
+			     3,0,"N_{H-jet} (#tau_{2}/#tau_{1}<0.6, "+nbl+" #geq 2)",4,1,hig_blue));
+  htags2.push_back(var_class("Sum$(fjets_pm>90&&fjets_pm<140&&fjets_tau21<0.6&&fjets_csv1>.89&&fjets_csv2>.89)",
+			     3,0,"N_{H-jet} (#tau_{2}/#tau_{1}<0.6, "+nbm+" #geq 2)",hig_col,1,hig_points));
 
 
 
   ///////////////////// ROCs to plot /////////////////////
 
-  DrawROC(bkg_t5hc, general, "nleps==0&&ht>750&&mht>400&&njets>=6&&dphi1>0.5&&ntrks==0", "general");
-  DrawROC(bkg_t5hc, htags, "nleps==0&&ht>750&&mht>400&&njets>=6&&dphi1>0.5&&ntrks==0", "htags");
+  //DrawROC(bkg_t5hc, general, "nleps==0&&ht>750&&mht>400&&njets>=6&&dphi1>0.5&&ntrks==0", "general");
+  DrawROC(bkg_t5hc, htags2, "nleps==0&&ht>750&&mht>400&&njets>=6&&dphi1>0.5&&ntrks==0", "htags2");
 
 
   // DrawROC(tt_t5hnc, general, "nleps==0&&ht>500&&mht>200&&njets>=4&&dphi1>0.5&&ntrks==0", "NC");
@@ -210,7 +223,7 @@ void DrawROC(vector<sample_class> samples, vector<var_class> vars, TString cuts,
     graphs[var] = MakeROC(histos[0][var], histos[1][var], vars[var].minx < vars[var].maxx, vars[var].cuts);
     graphs[var].SetLineColor(vars[var].color);
     graphs[var].SetLineStyle(vars[var].style);
-    graphs[var].SetLineWidth(5);
+    graphs[var].SetLineWidth(4);
     leg.AddEntry(&(graphs[var]), vars[var].title, "l");
     graphs[var].Draw("lsame");
   } // Loop over variables

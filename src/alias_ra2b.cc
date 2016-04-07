@@ -11,6 +11,7 @@ void setAliasRa2b(TTree *tree){
   tree->SetAlias("mht"		,"MHT");
   tree->SetAlias("njets"	,"NJets");
   tree->SetAlias("nbm"	        ,"BTags");
+  tree->SetAlias("nhiggs"	,"Sum$(fjets_pm>90&&fjets_pm<140&&fjets_tau21<0.6&&fjets_csv1>.605&&fjets_csv2>.605&&fjets.Pt()>300)");
   tree->SetAlias("nels"		,"@Electrons.size()");
   tree->SetAlias("nmus"		,"@Muons.size()");
   tree->SetAlias("nleps"	,"@Electrons.size()+@Muons.size()");

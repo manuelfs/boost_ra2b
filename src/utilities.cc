@@ -627,11 +627,13 @@ TString cuts2title(TString title){
   title.ReplaceAll("fjets.Pt()", "p_{T}^{J}");
   title.ReplaceAll("fjets_pm", "m_{J}");
   title.ReplaceAll("fjets_tau21", "#tau_{2}/#tau_{1}");
+  title.ReplaceAll("fjets_tau32", "#tau_{3}/#tau_{2}");
   title.ReplaceAll("fjets_csv1", "CSV_{1}");
   title.ReplaceAll("fjets_csv2", "CSV_{2}");
   title.ReplaceAll("mc_id==25", "True Higgs");
   title.ReplaceAll("dphi1>0.5", "high #Delta#phi");
   title.ReplaceAll("ntrks", "n_{tks}");
+  title.ReplaceAll("nhiggs", "N_{H-jet}");
 
   title.ReplaceAll("1==1", "Full Sample");
   title.ReplaceAll("el_tks_chg*lep_charge<0", "OS");title.ReplaceAll("mu_tks_chg*lep_charge<0", "OS");title.ReplaceAll("had_tks_chg*lep_charge<0", "OS");
