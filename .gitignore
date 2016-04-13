@@ -1,3 +1,5 @@
+src/baby_*
+inc/baby_*
 plots/*
 run/*.exe
 

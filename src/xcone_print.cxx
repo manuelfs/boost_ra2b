@@ -16,7 +16,7 @@
 
 #include "styles.hh"
 #include "utilities.hh"
-#include "baby_basic.hh"
+#include "baby_boost.hh"
 #include "xcone_utils.hh"
 
 #include "fastjet/ClusterSequence.hh"
@@ -38,7 +38,7 @@ int main(){
   if(Contains(hostname, "cms") || Contains(hostname, "compute-"))  
     bfolder = "/net/cms2"; // In laptops, you can't create a /net folder
 
-  TString foldert2(bfolder+"/cms2r0/aovcharova/treemaker/babies/");
+  TString foldert2(bfolder+"/cms2r0/boost/pfcands/");
 
   TString masses;
   vector<TString> ntuples;
@@ -53,7 +53,7 @@ int main(){
       if (verb) cout<<"Number of ntuples found: "<<ntuples.size()<<endl;
       if(ntuples.size()!=1) continue;
 
-      baby_basic baby(foldert2+ntuples[0]);
+      baby_boost baby(foldert2+ntuples[0]);
       if (verb) cout<<"Doing "<<foldert2+ntuples[0]<<" with "<<baby.GetEntries()<<" entries"<<endl;
       unsigned nEvents = 0;
       long nent_max = baby.GetEntries();

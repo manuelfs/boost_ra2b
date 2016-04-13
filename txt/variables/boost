@@ -27,15 +27,6 @@ float mt_rebal
 float dphi_wlep
 bool jetmismeas
 
-###################   PFCands   ###############
-std::vector<float> pfcands_m
-std::vector<float> pfcands_pt
-std::vector<float> pfcands_eta
-std::vector<float> pfcands_phi
-std::vector<int>   pfcands_id
-std::vector<bool>  pfcands_charge
-std::vector<int>   pfcands_frompv
-
 ###################   MET   ##################
 float met
 float met_phi
@@ -83,6 +74,15 @@ std::vector<bool>  jets_islep
 std::vector<int>   jets_fjet_index
 std::vector<int>   jets_fjet08_index
 std::vector<int>   jets_hflavor
+
+###################   PFCands   ###############
+std::vector<float> pfcands_m
+std::vector<float> pfcands_pt
+std::vector<float> pfcands_eta
+std::vector<float> pfcands_phi
+std::vector<int>   pfcands_id
+std::vector<bool>  pfcands_charge
+std::vector<int>   pfcands_frompv
 
 ##################   Leptons   ################
 int nleps
@@ -175,6 +175,10 @@ float mumuv_pt
 float mumuv_eta
 float mumuv_phi
 float mumuv_w
+
+##################   Di-jets   ###################
+
+std::vector<float> dr_bb
 
 ##################   Photons   ###################
 int nph
@@ -269,6 +273,12 @@ std::vector<float> mc_phi
 std::vector<float> mc_mass
 std::vector<int>   mc_id
 std::vector<int>   mc_mom
+std::vector<float> mcf_pt
+std::vector<float> mcf_eta
+std::vector<float> mcf_phi
+std::vector<float> mcf_mass
+std::vector<int>   mcf_id
+float m_tt
 bool fromGS
 int ntruleps
 int ntrumus
@@ -290,6 +300,7 @@ float w_toppt
 float w_lep
 float w_fs_lep
 float eff_trig
+float eff_jetid
 std::vector<float> w_pdf
 
 ################  Systematic variations   ##################
