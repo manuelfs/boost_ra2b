@@ -19,6 +19,8 @@
 #include "TRandom3.h"
 #include "TChain.h"
 
+#include "fastjet/PseudoJet.hh"
+
 typedef std::pair<int,double> int_double;
 typedef std::pair<double,double> double_double;
 const long double PI = acos(-1.L);
@@ -37,6 +39,11 @@ namespace ra2b{
   };
 
 }
+
+// PseudoJet utilities
+bool jetCompare(fastjet::PseudoJet &jet1, fastjet::PseudoJet &jet2);
+bool jetMatch(fastjet::PseudoJet &jet1, fastjet::PseudoJet &jet2);
+
 
 
 struct pfeats{
@@ -95,7 +102,6 @@ public:
   double weight(unsigned i);
   unsigned size();
 };
-
 
 TString getTreeName(TString filename);
 

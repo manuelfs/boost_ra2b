@@ -272,6 +272,7 @@ std::vector<float> mc_eta
 std::vector<float> mc_phi
 std::vector<float> mc_mass
 std::vector<int>   mc_id
+std::vector<int>   mc_status
 std::vector<int>   mc_mom
 std::vector<float> mcf_pt
 std::vector<float> mcf_eta

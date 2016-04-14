@@ -39,6 +39,7 @@
 #include "alias_ra2b.hh"
 
 using namespace std;
+using namespace fastjet;
 
 TString getTreeName(TString filename){
   TString folder(filename); folder.Remove(folder.Last('/'), folder.Length());
@@ -1327,3 +1328,11 @@ vector<double> LinearSpacing(size_t npts, double low, double high){
   return pts;
 }
 
+bool jetCompare(fastjet::PseudoJet &jet1, fastjet::PseudoJet &jet2){
+  return jet1.pt() > jet2.pt();
+}
+bool jetMatch(fastjet::PseudoJet &jet1, fastjet::PseudoJet &jet2){
+  float deltaR = dR(jet1.eta(), jet2.eta(), jet1.phi(), jet2.phi());
+  float deltaP = abs(jet1.pt()-jet2.pt())/jet1.pt();
+  return (deltaP<0.5 && deltaR<0.15);
+}
